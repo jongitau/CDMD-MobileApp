@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">CDMS</string>
+
+
+    <!--error handler messages-->
+    <string name="something_went_wrong">Oops, something went wrong.</string>
+    <string name="access_denied">Sorry, access denied.</string>
+    <string name="unprocessable_entity">Malformed request</string>
+    <string name="not_found">Requested resource is unavailable</string>
+    <string name="error_on_service_access">An error occurred while you were trying to access the service.</string>
+    <string name="service_could_not_complete_request">The service could not complete your request.</string>
+    <string name="service_not_available">The service is not available, please try again.</string>
+    <string name="unexpected_error">An unexpected error occurred. Please try again.</string>
+    <string name="network_error">A network error occurred. Please check your connection.</string>
+</resources>
