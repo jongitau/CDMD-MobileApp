@@ -16,6 +16,7 @@ import com.cdms.android.adapter.BillAdapter
 import com.cdms.android.model.Bill
 import com.cdms.android.network.RestClient
 import com.cdms.android.network.RestInterface
+import com.cdms.android.utils.PreferenceUtils
 import com.fevziomurtekin.customprogress.Dialog
 import com.fevziomurtekin.customprogress.Type
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -23,13 +24,13 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 class MainActivity : AppCompatActivity() {
 
     var currentLocationId = ""
+    var currentLocationName = ""
 
     var locationIds: Array<Int> = arrayOf(755, 762, 763)
-    var locationNames: Array<String> = arrayOf("HURUMA", "RIRUTA", "KAWE")
+    private var locationNames: Array<String> = arrayOf("HURUMA", "RIRUTA", "KAREN")
 
     private lateinit var progressbar : Dialog
 
@@ -57,6 +58,9 @@ class MainActivity : AppCompatActivity() {
                 id: Long
             ) {
                 currentLocationId = locationIds[position].toString()
+                currentLocationName = locationNames[position]
+                PreferenceUtils.putString("locationId", currentLocationId)
+                PreferenceUtils.putString("locationName", currentLocationName)
                 getOpenBills()
             }
 

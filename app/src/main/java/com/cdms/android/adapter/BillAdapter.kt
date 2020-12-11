@@ -42,7 +42,8 @@ class BillAdapter(
 
         @SuppressLint("SetTextI18n")
         fun bindItems(bill: Bill) {
-            itemView.name.text = bill.firstName + " " + bill.lastName
+            val patientName = bill.firstName + " " + bill.lastName
+            itemView.name.text = patientName
             itemView.bill_amount.text = bill.billAmount.toString()
             itemView.bill_date.text = bill.billDate
             itemView.bill_id.text = bill.id
@@ -53,7 +54,9 @@ class BillAdapter(
 
             itemView.setOnClickListener{
                 val intent = Intent(itemView.context, BillDetails::class.java)
-                intent.putExtra("id", bill.id)
+                intent.putExtra("patientId", bill.patientID)
+                intent.putExtra("patientName", patientName)
+
                 itemView.context.startActivity(intent)
             }
         }

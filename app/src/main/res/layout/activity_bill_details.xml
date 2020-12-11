@@ -1,9 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+>
 
-</LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kazi Kwako"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/name"
+        android:textSize="24sp"
+        android:textColor="@color/Black"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2333"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:layout_below="@id/name"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/patient_id"
+        android:textSize="20sp"
+        />
+
+    <com.fevziomurtekin.customprogress.Dialog
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/progress"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/empty_text"
+        android:visibility="gone"
+        android:text="There are no items to display on this location"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/patient_id"
+        android:layout_marginTop="10dp"
+        android:layout_above="@+id/total"
+        android:id="@+id/rv_medicine">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/total"
+        android:background="@color/green_400"
+        >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/total_amount"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/white"
+        android:layout_centerVertical="true"
+        android:text="Total: KES 2,008"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:textSize="24sp"
+        />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@mipmap/print"
+            app:tint="@color/white"
+            android:id="@+id/print"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

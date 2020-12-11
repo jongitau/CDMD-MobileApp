@@ -12,5 +12,5 @@ class CDMS : MultiDexApplication() {
 
     companion object {
         lateinit var instance: CDMS
-        }
+    }
 }
