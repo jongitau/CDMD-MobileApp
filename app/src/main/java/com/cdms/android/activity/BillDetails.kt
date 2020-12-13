@@ -1,4 +1,4 @@
-package com.cdms.android
+package com.cdms.android.activity
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.cdms.android.R
 import com.cdms.android.adapter.MedicineAdapter
 import com.cdms.android.model.Medicine
 import com.cdms.android.network.RestClient
@@ -20,6 +21,8 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_bill_details.*
 import kotlinx.android.synthetic.main.activity_main.empty_text
+import java.text.DecimalFormat
+import java.text.NumberFormat
 
 class BillDetails : AppCompatActivity(){
 
@@ -75,7 +78,6 @@ class BillDetails : AppCompatActivity(){
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ it ->
                     medicine = it
-                    total_amount.text = "TOTAL: KES " + calculateTotal().toString()
                     loadViews()
                     progressbar.isVisible = false
                     if( medicine?.size == 0 ){
@@ -93,6 +95,7 @@ class BillDetails : AppCompatActivity(){
         )
     }
 
+    @SuppressLint("SetTextI18n")
     private fun loadViews(){
 
         val objAdapter = medicine?.let {
@@ -102,6 +105,10 @@ class BillDetails : AppCompatActivity(){
         }
         rv_medicine.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rv_medicine.adapter = objAdapter
+
+        val formatter: NumberFormat = DecimalFormat("#,###")
+
+        total_amount.text =  "Total: KES " + formatter.format(calculateTotal()).toString()
     }
 
     private fun calculateTotal() : Double {

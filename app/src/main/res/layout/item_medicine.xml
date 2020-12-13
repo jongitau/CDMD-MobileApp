@@ -29,7 +29,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="KAZI REGISTRATION [Housing]"
+            android:text="KAZI "
             android:textStyle="bold"
             android:id="@+id/name"
             android:textSize="16sp"
@@ -45,7 +45,6 @@
                 android:layout_height="wrap_content"
                 android:text="Quantity:"
                 android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
                 android:textStyle="bold"
                 android:textSize="14sp"
                 android:textColor="@color/Black"/>
@@ -68,7 +67,6 @@
                 android:layout_height="wrap_content"
                 android:text="Amount:"
                 android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
                 android:textStyle="bold"
                 android:textSize="14sp"
                 android:textColor="@color/Black"/>
@@ -90,7 +88,6 @@
                 android:layout_height="wrap_content"
                 android:text="Bill Date:"
                 android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
                 android:textStyle="bold"
                 android:textSize="14sp"
                 android:textColor="@color/Black"/>

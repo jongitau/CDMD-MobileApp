@@ -46,29 +46,4 @@ class Medicine {
     @SerializedName("ItemSourceReferenceID")
     var itemSourceReferenceID: Double? = null
 
-
-
-//    "BillID": null,
-//    "billItemID": 6676,
-//    "PatientID": 9062,
-//    "LocationID": 762,
-//    "BillItemDate": "2020-12-10T00:00:00",
-//    "ItemName": "Epilim-Epilim 200mg",
-//    "ItemId": 1252,
-//    "ItemType": 300,
-//    "Quantity": 1,
-//    "PaymentType": null,
-//    "PaymentName": null,
-//    "SellingPrice": 10.00,
-//    "Discount": 0.00,
-//    "Amount": 10.00,
-//    "PaymentStatus": 0,
-//    "PayItem": true,
-//    "ServiceStatus": 0,
-//    "ModuleId": 0,
-//    "CostCenterName": "Pharmacy",
-//    "ItemTypeName": "Pharmaceuticals",
-//    "ItemSourceReferenceID": 3367
-
-
 }

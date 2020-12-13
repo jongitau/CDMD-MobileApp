@@ -1,9 +1,7 @@
 package com.cdms.android.utils
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.preference.PreferenceManager
-import com.cdms.android.CDMS
+import com.cdms.android.app.CDMS
 
 
 object PreferenceUtils {

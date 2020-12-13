@@ -9,6 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cdms.android.R
 import com.cdms.android.model.Medicine
 import kotlinx.android.synthetic.main.item_medicine.view.*
+import java.text.DecimalFormat
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MedicineAdapter(
@@ -41,7 +45,11 @@ class MedicineAdapter(
         @SuppressLint("SetTextI18n")
         fun bindItems(medicine: Medicine) {
             itemView.name.text = medicine.itemName
-            itemView.total.text = medicine.amount.toString()
+
+            val formatter: NumberFormat = DecimalFormat("#,###")
+
+            itemView.total.text = "KES " + formatter.format(medicine.amount).toString()
+
             itemView.quantity.text = medicine.quantity.toString()
             itemView.bill_date.text = medicine.billItemDate.toString()
         }

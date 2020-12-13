@@ -1,4 +1,4 @@
-package com.cdms.android
+package com.cdms.android.app
 import androidx.multidex.MultiDexApplication
 
 

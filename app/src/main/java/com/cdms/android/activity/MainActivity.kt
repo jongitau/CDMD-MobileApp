@@ -1,7 +1,5 @@
-package com.cdms.android
+package com.cdms.android.activity
 
-import android.app.ProgressDialog
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -12,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.cdms.android.R
 import com.cdms.android.adapter.BillAdapter
 import com.cdms.android.model.Bill
 import com.cdms.android.network.RestClient
@@ -43,8 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.
-        activity_main)
+        setContentView(R.layout.activity_main)
 
         location.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, locationNames)
 

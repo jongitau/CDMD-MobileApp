@@ -1,7 +1,7 @@
 package com.cdms.android.network
 
 
-import com.cdms.android.CDMS
+import com.cdms.android.app.CDMS
 import com.cdms.android.R
 import com.cdms.android.event.ErrorEvent
 import org.greenrobot.eventbus.EventBus
