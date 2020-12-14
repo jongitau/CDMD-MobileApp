@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.cdms.android.activity.BillDetails
+import com.cdms.android.activity.BillDetailsActivity
 import com.cdms.android.R
 import com.cdms.android.model.Bill
 import kotlinx.android.synthetic.main.item_bill.view.*
@@ -58,7 +58,7 @@ class BillAdapter(
             itemView.patient_id.text = bill.patientID.toString()
 
             itemView.setOnClickListener{
-                val intent = Intent(itemView.context, BillDetails::class.java)
+                val intent = Intent(itemView.context, BillDetailsActivity::class.java)
                 intent.putExtra("patientId", bill.patientID)
                 intent.putExtra("patientName", patientName)
 

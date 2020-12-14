@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_main.empty_text
 import java.text.DecimalFormat
 import java.text.NumberFormat
 
-class BillDetails : AppCompatActivity(){
+class BillDetailsActivity : AppCompatActivity(){
 
 
     private var patientName = ""
