@@ -26,7 +26,7 @@ import java.lang.ref.WeakReference
 
 
 class SearchBTActivity : Activity(), View.OnClickListener {
-    private var linearlayoutdevices: LinearLayout? = null
+    private var linearLayoutDevices: LinearLayout? = null
     private var progressBarSearchStatus: ProgressBar? = null
     private var dialog: ProgressDialog? = null
     private var broadcastReceiver: BroadcastReceiver? = null
@@ -37,7 +37,7 @@ class SearchBTActivity : Activity(), View.OnClickListener {
         findViewById<View>(R.id.buttonSearch).setOnClickListener(this)
         progressBarSearchStatus =
             findViewById<View>(R.id.progressBarSearchStatus) as ProgressBar
-        linearlayoutdevices =
+        linearLayoutDevices =
             findViewById<View>(R.id.linearlayoutdevices) as LinearLayout
         dialog = ProgressDialog(this)
         initBroadcast()
@@ -57,25 +57,32 @@ class SearchBTActivity : Activity(), View.OnClickListener {
         when (arg0.id) {
             R.id.buttonSearch -> {
                 val adapter = BluetoothAdapter.getDefaultAdapter()
-                if (null == adapter) {
+                if (adapter == null) {
                     finish()
+                    return
                 }
+
                 if (!adapter.isEnabled) {
                     if (adapter.enable()) {
-                        while (!adapter.isEnabled);
-                        Log.v(
-                            TAG,
-                            "Enable BluetoothAdapter"
-                        )
+                        while (!adapter.isEnabled) {
+                            Log.v(
+                                TAG,
+                                "Enable BluetoothAdapter"
+                            )
+                        }
                     } else {
                         finish()
                     }
+                }
 
+                if (null != WorkService.workThread) {
                     WorkService.workThread.disconnectBt()
                     Thread.sleep(1_0)
                 }
+
+
                 adapter.cancelDiscovery()
-                linearlayoutdevices!!.removeAllViews()
+                linearLayoutDevices!!.removeAllViews()
 
                 Thread.sleep(1_0)
                 adapter.startDiscovery()
@@ -116,7 +123,7 @@ class SearchBTActivity : Activity(), View.OnClickListener {
                         WorkService.workThread.connectBt(address)
                     }
                     button.background.alpha = 100
-                    linearlayoutdevices!!.addView(button)
+                    linearLayoutDevices!!.addView(button)
                 } else if (BluetoothAdapter.ACTION_DISCOVERY_STARTED
                     == action
                 ) {
@@ -154,13 +161,13 @@ class SearchBTActivity : Activity(), View.OnClickListener {
                     Log.v(TAG, "Connect Result: $result")
                     theActivity!!.dialog!!.cancel()
                     if (1 == result) {
-                        PrintTest()
+                        printTest()
                     }
                 }
             }
         }
 
-        fun PrintTest() {
+        fun printTest() {
             val str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ\n0123456789\n"
             val tmp1 = byteArrayOf(
                 0x1b, 0x40, 0xB2.toByte(), 0xE2.toByte(), 0xCA.toByte(),
@@ -187,7 +194,6 @@ class SearchBTActivity : Activity(), View.OnClickListener {
                 ).show()
             }
         }
-
     }
 
     companion object {
