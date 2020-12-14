@@ -181,7 +181,7 @@ class SearchBTActivity : Activity(), View.OnClickListener {
                     str.toByteArray(), tmp2, str.toByteArray(), tmp3
                 )
             )
-            if (WorkService.workThread.isConnected()) {
+            if (WorkService.workThread.isConnected) {
                 val data = Bundle()
                 data.putByteArray(Global.BYTESPARA1, buf)
                 data.putInt(Global.INTPARA1, 0)
