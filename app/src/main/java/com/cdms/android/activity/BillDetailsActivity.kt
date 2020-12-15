@@ -85,7 +85,7 @@ class BillDetailsActivity : AppCompatActivity(){
             bill += " \n$itemName + \nKES $amount"
         }
 
-        val text: String = ("BILL DETAILS"
+        val text: String = ("\n\n\nBILL DETAILS"
                 + "\n"
                 + "Patient Name: $patientName"
                 + "\n"
