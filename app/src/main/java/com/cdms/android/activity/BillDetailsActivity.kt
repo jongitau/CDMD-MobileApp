@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cdms.android.Global
@@ -29,10 +30,8 @@ import java.io.UnsupportedEncodingException
 import java.lang.ref.WeakReference
 import java.text.DecimalFormat
 import java.text.NumberFormat
-import androidx.core.view.isVisible
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class BillDetailsActivity : AppCompatActivity(){
 
@@ -85,30 +84,26 @@ class BillDetailsActivity : AppCompatActivity(){
         medicine?.map {
             val itemName = it.itemName
             val amount = it.amount
-            bill += " \n$itemName + \nKES $amount"
+            bill += " \n$itemName \nKES $amount"
         }
 
-        val dateFormat = SimpleDateFormat(
-            "yyyy-MM-dd HH:mm:ss", Locale.ENGLISH
-        )
-        val date = dateFormat.parse(Date().toString())
+        val timeStamp: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).format(Date())
 
-        val text: String = ("\n\n\nBILL DETAILS"
+        val text: String = ("\n\nBILL DETAILS"
                 + "\n"
                 + "Patient Name: $patientName"
                 + "\n"
-                + "$date"
+                + timeStamp
                 +"\n"
                 + ".........................."
-                + "\n"
                 + bill
                 + "\n"
                 + ".........................."
                 + "\n"
-                + "Total: KES $totalAmount"
+                + "Total: KES $totalAmount\n"
                 )
 
-        print(text)
+        println(text)
 
         var header: ByteArray? = null
         var strbuf: ByteArray? = null
