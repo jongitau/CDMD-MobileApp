@@ -30,6 +30,9 @@ import java.lang.ref.WeakReference
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import androidx.core.view.isVisible
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class BillDetailsActivity : AppCompatActivity(){
 
@@ -85,10 +88,17 @@ class BillDetailsActivity : AppCompatActivity(){
             bill += " \n$itemName + \nKES $amount"
         }
 
+        val dateFormat = SimpleDateFormat(
+            "yyyy-MM-dd HH:mm:ss", Locale.ENGLISH
+        )
+        val date = dateFormat.parse(Date().toString())
+
         val text: String = ("\n\n\nBILL DETAILS"
                 + "\n"
                 + "Patient Name: $patientName"
                 + "\n"
+                + "$date"
+                +"\n"
                 + ".........................."
                 + "\n"
                 + bill
@@ -97,6 +107,8 @@ class BillDetailsActivity : AppCompatActivity(){
                 + "\n"
                 + "Total: KES $totalAmount"
                 )
+
+        print(text)
 
         var header: ByteArray? = null
         var strbuf: ByteArray? = null
