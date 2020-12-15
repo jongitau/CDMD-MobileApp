@@ -93,6 +93,8 @@ class BillDetailsActivity : AppCompatActivity(){
                 + "\n"
                 + "Patient Name: $patientName"
                 + "\n"
+                + "Patient ID: $patientId"
+                + "\n"
                 + timeStamp
                 +"\n"
                 + ".........................."
