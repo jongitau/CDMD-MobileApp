@@ -27,7 +27,7 @@
         <activity android:name=".activity.BillDetailsActivity" android:label="Bill Details" android:parentActivityName=".activity.MainActivity"/>
         <activity android:name=".activity.SearchBTActivity" android:label="Bill Details" android:parentActivityName=".activity.MainActivity"/>
         <activity android:name=".activity.ConnectBTPairedActivity" android:label="Connect Printer" android:parentActivityName=".activity.MainActivity"/>
-
+        <service android:name=".service.WorkService" />
     </application>
 
 </manifest>

@@ -1,7 +1,11 @@
 package com.cdms.android.activity
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
+import android.os.Parcelable
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -13,18 +17,23 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.cdms.android.Global
 import com.cdms.android.R
 import com.cdms.android.adapter.BillAdapter
 import com.cdms.android.model.Bill
 import com.cdms.android.network.RestClient
 import com.cdms.android.network.RestInterface
+import com.cdms.android.service.WorkService
+import com.cdms.android.utils.FileUtils
 import com.cdms.android.utils.PreferenceUtils
 import com.fevziomurtekin.customprogress.Dialog
 import com.fevziomurtekin.customprogress.Type
+import com.lvrenyang.io.IOCallBack
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
+import java.lang.ref.WeakReference
 
 
 class MainActivity : AppCompatActivity() {
@@ -38,6 +47,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var progressbar : Dialog
 
     private var openBills: ArrayList<Bill>? = null
+
+    private var mHandler: Handler? = null
 
     private val disposable = CompositeDisposable()
     private val restInterface by lazy {
@@ -73,7 +84,101 @@ class MainActivity : AppCompatActivity() {
 
         getOpenBills()
 
+        WorkService.cb = object : IOCallBack {
+            // WorkThread线程回调
+            override fun OnOpen() {
+                // TODO Auto-generated method stub
+                if (null != mHandler) {
+                    val msg: Message =
+                        mHandler?.obtainMessage(Global.MSG_IO_ONOPEN)!!
+                    mHandler?.sendMessage(msg)!!
+                }
+            }
+
+            override fun OnClose() {
+                // TODO Auto-generated method stub
+                if (null != mHandler) {
+                    val msg: Message =
+                        mHandler?.obtainMessage(Global.MSG_IO_ONCLOSE)!!
+                        mHandler?.sendMessage(msg)!!
+                }
+            }
+        }
+        mHandler = MHandler(this)
+        WorkService.addHandler(mHandler)
+
+        if (null == WorkService.workThread) {
+
+            val intent = Intent(this, WorkService::class.java)
+            startService(intent)
+        }
+
+        handleIntent(intent)
+
     }
+
+    private fun handleIntent(intent: Intent) {
+        val action = intent.action
+        val type = intent.type
+        if (Intent.ACTION_SEND == action && type != null) {
+            if ("text/plain" == type) {
+                handleSendText(intent) // Handle text being sent
+            }
+        }
+    }
+
+    private fun handleSendText(intent: Intent) {
+        val textUri =
+            intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as Uri?
+        if (textUri != null) {
+            // Update UI to reflect text being shared
+            if (WorkService.workThread.isConnected) {
+                val buffer =
+                    byteArrayOf(0x1b, 0x40, 0x1c, 0x26, 0x1b, 0x39, 0x01) // 设置中文，切换双字节编码。
+                val data = Bundle()
+                data.putByteArray(Global.BYTESPARA1, buffer)
+                data.putInt(Global.INTPARA1, 0)
+                data.putInt(Global.INTPARA2, buffer.size)
+                WorkService.workThread.handleCmd(Global.CMD_POS_WRITE, data)
+            }
+            if (WorkService.workThread.isConnected) {
+                val path = textUri.path
+                val strText: String = FileUtils.ReadToString(path)
+                val buffer = strText.toByteArray()
+                val data = Bundle()
+                data.putByteArray(Global.BYTESPARA1, buffer)
+                data.putInt(Global.INTPARA1, 0)
+                data.putInt(Global.INTPARA2, buffer.size)
+                data.putInt(Global.INTPARA3, 128)
+                WorkService.workThread.handleCmd(
+                    Global.CMD_POS_WRITE_BT_FLOWCONTROL, data
+                )
+            } else {
+                Toast.makeText(
+                    this, Global.toast_notconnect,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            finish()
+        }
+    }
+
+
+    internal class MHandler(activity: MainActivity) : Handler() {
+        var mActivity: WeakReference<MainActivity>
+        override fun handleMessage(msg: Message) {
+//            val theActivity = mActivity.get()
+//            when (msg.what) {
+//                Global.MSG_IO_ONOPEN -> theActivity.mStatusBar.setProgress(100)
+//                Global.MSG_IO_ONCLOSE -> theActivity.mStatusBar.setProgress(0)
+//            }
+        }
+
+        init {
+            mActivity = WeakReference(activity)
+        }
+    }
+
 
     private fun getOpenBills() {
 

@@ -21,11 +21,11 @@ import java.lang.ref.WeakReference
 import java.util.*
 
 class ConnectBTPairedActivity : Activity(), OnItemClickListener {
-    private var dialog: ProgressDialog? = null
+    private var dialog: AlertDialog? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_connect_paired_printer)
-        dialog = ProgressDialog(this)
+
         boundedPrinters = boundedPrinters
         listView =
             findViewById<View>(R.id.listViewSettingConnect) as ListView
@@ -62,10 +62,9 @@ class ConnectBTPairedActivity : Activity(), OnItemClickListener {
         val alertDialog: AlertDialog.Builder = AlertDialog.Builder(this)
         alertDialog.setTitle("Connecting")
         alertDialog.setMessage(Global.toast_connecting.toString() + address)
-        val alert: AlertDialog = alertDialog.create()
-        alert.setCanceledOnTouchOutside(false)
-        alert.show()
-
+        dialog = alertDialog.create()
+        dialog?.setCanceledOnTouchOutside(false)
+        dialog?.show()
 
         WorkService.workThread.connectBt(address)
     }// Add the name and address to an array adapter to show in a
@@ -123,7 +122,8 @@ class ConnectBTPairedActivity : Activity(), OnItemClickListener {
                         TAG,
                         "Connect Result: $result"
                     )
-                    theActivity!!.dialog!!.cancel()
+                    theActivity!!.dialog!!.dismiss()
+                    theActivity.finish()
                 }
             }
         }

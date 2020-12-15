@@ -125,5 +125,5 @@ public class Global {
 	public static String toast_fail = "Fail";
 	public static String toast_notconnect = "Please connect printer";
 	public static String toast_usbpermit = "Please permit app use usb and reclick this button";
-	public static String toast_connecting = "Connecting";
+	public static String toast_connecting = "Connecting to ";
 }
