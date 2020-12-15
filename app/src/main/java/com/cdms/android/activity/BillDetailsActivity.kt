@@ -100,7 +100,8 @@ class BillDetailsActivity : AppCompatActivity(){
                 + "\n"
                 + ".........................."
                 + "\n"
-                + "Total: KES $totalAmount\n"
+                + "Total: KES $totalAmount"
+                + "\r\n\r"
                 )
 
         println(text)
