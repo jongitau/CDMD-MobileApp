@@ -82,7 +82,7 @@ class BillDetailsActivity : AppCompatActivity(){
         medicine?.map {
             val itemName = it.itemName
             val amount = it.amount
-            bill += " \n $itemName + $amount"
+            bill += " \n$itemName + \nKES $amount"
         }
 
         val text: String = ("BILL DETAILS"
