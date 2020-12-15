@@ -89,7 +89,7 @@ class BillDetailsActivity : AppCompatActivity(){
 
         val timeStamp: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).format(Date())
 
-        val text: String = ("\n\nBILL DETAILS"
+        val text: String = ("BILL DETAILS"
                 + "\n"
                 + "Patient Name: $patientName"
                 + "\n"
